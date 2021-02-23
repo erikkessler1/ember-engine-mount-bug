@@ -1,34 +1,18 @@
-# ember-engines [![npm version](https://badge.fury.io/js/ember-engines.svg)](https://badge.fury.io/js/ember-engines) [![Build Status](https://travis-ci.org/ember-engines/ember-engines.svg?branch=master)](https://travis-ci.org/ember-engines/ember-engines)
+# ember-engine mount args bug
 
-This Ember addon implements the functionality described in the [Ember Engines
-RFC](https://github.com/emberjs/rfcs/blob/master/text/0010-engines.md). Engines allow multiple logical
-applications to be composed together into a single application from the user's
-perspective.
+This repo demonstrates an issue with the `model` arg passed via
+`{{mount}}` to an engine where the args are marked as updated on
+*every* render making it hard to build a computed based on the model.
 
-## Packages
+See the broken test in [`routeless-engine-demo-test.js`][test]:
 
-This project is a monorepo managed by yarn workspaces. All packages are
-organized in the [/packages/](./packages/) directory.
+```sh
+cd packages/ember-engines/
+yarn
+ember test --filter="can rerender a component in a routeless engine"
+```
 
-The only public package is [ember-engines](./packages/ember-engines/). Other
-packages are private to this repo and are used to support testing
-`ember-engines`.
+_Note: this appears to be fixed with ember-source@3.22.0, but impacts
+the LTS (3.20)._
 
-## Documentation
-
-Check the full documentation in the [Ember Engines
-Guides](http://ember-engines.com/).
-
-## Support
-
-Having trouble? **Join #ember-engines** on the [Ember Community Discord
-server](https://discord.gg/zT3asNS)
-
-## Contributing
-
-See the [Contributing](CONTRIBUTING.md) guide for details.
-
-## License
-
-Copyright 2015-2020 Dan Gebhardt and Robert Jackson. MIT License (see
-[LICENSE.md](LICENSE.md) for details).
+[test]: https://github.com/erikkessler1/ember-engine-mount-bug/blob/master/packages/ember-engines/tests/acceptance/routeless-engine-demo-test.js#L19

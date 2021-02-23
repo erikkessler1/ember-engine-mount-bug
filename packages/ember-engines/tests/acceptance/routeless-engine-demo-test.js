@@ -19,11 +19,15 @@ module('Acceptance | routeless engine demo', function (hooks) {
   test('can rerender a component in a routeless engine', async function (assert) {
     await visit('/routeless-engine-demo');
 
+    let userDetails = find('.user-details');
     let clickCount = find('.click-count');
+
+    let initaDetails = userDetails.textContent.trim();
     assert.equal(clickCount.textContent.trim(), '0');
 
     await click('button.clicker');
 
     assert.equal(clickCount.textContent.trim(), '1');
+    assert.equal(userDetails.textContent.trim(), initaDetails);
   });
 });
